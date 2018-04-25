@@ -23,20 +23,24 @@ The [LinuxServer.io][linuxserverurl] team brings you another container release f
 
 ```
 docker create \
-	--name sonarr \
-	-p 8989:8989 \
-	-e PUID=<UID> -e PGID=<GID> \
-	-e TZ=<timezone> \ 
-	-v /etc/localtime:/etc/localtime:ro \
-	-v </path/to/appdata>:/config \
-	-v <path/to/tvseries>:/tv \
-	-v <path/to/downloadclient-downloads>:/downloads \
-	linuxserver/sonarr
+    --name=sonarrjackett \
+    --restart=always \
+    -v /home/plex/.config/SonarrJackett:/config \
+    -v /home/plex/Downloads:/downloads \
+    -v /home/plex/torrents:/torrents \
+    -v /home/plex/TV:/TV \
+    -e PUID=1001 -e PGID=1001 \
+    -e TZ=Etc/UTC \
+    -v /etc/localtime:/etc/localtime:ro \
+    -p 8989:8989 \
+    -p 9117:9117 \
+    paulgregg/sonarrjackett
 ```
 
 You can choose between ,using tags, various branch versions of sonarr, no tag is required to remain on the main branch.
 
 Add one of the tags,  if required,  to the linuxserver/sonarr line of the run/create command in the following format, linuxserver/sonarr:develop
+^ Use paulgregg/sonarrjackett if using this fork and not upstream
 
 #### Tags
 
